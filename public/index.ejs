@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="OTT">
+  <head>
+    <link rel="stylesheet" href="/public/css/bootstrap.css">
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/css/myStyles.css">
+    <link rel="stylesheet" href="/public/css/owl.carousel.css">
+  </head>
+  <header>
+    <!-- MENU -->
+    <nav class="navbar navbar-default">
+      <ul class="nav">
+        <li ng-class="{'active': '<%=page%>' == 'live'}"><a href="live">Live</a></li>
+        <li ng-class="{'active': '<%=page%>' == 'media'}"><a href="media">Media</a></li>
+        <li ng-class="{'active': '<%=page%>' == 'account'}"><a href="account">My Account</a></li>
+      </ul>
+      <input class="btn btn-default right-float btn-primary default-margins" type="button" value="Logout" onclick="window.location.href='/logout'"> 
+    </nav>
+  </header>
+  <body>
+  	<div>
+      <% if(page=="live"){ %>
+	  <%- include("live/live") %>
+	  <% }else if(page=="media"){ %>
+	  <%- include("media/media") %>
+	  <% }else if(page=="account"){ %>
+	  <%- include("account/account") %>
+	  <% }%>%>
+  	</div>
+  </body>
+</html>
+<script type="text/javascript" src="https://static.mdstrm.com/js/player_api.js"></script>
+<script type="text/javascript" src="./public/js/player.js"></script>
+<script type="text/javascript" src="./public/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="./public/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="./public/js/angular-1.4.4.js"></script>
+<script type="text/javascript" src="./public/js/index.js"></script>
+<script type="text/javascript" src="./public/media/media.js"></script>
+<script type="text/javascript" src="./public/account/account.js"></script>
+<script type="text/javascript" src="./public/live/live.js"></script>
+
+
+

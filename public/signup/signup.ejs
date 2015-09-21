@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Signup">
+  <head>
+    <link rel="stylesheet" href="/public/css/bootstrap.css">
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/css/myStyles.css">
+    <link rel="stylesheet" href="public/css/datepicker.css">
+  </head>
+  <body>
+    <div class="container text-center" ng-controller="signupFormCtrl">
+      <div ng-show="submitForm" class="top-margin">
+        <img src="/public/img/loading.gif">
+      </div>
+	  <div ng-show="succesSignup" class="center panel panel-default sign-up-form top-margin">
+        <div class="panel-heading">
+            <h1>SUCESS!</h1>
+            <h2>User Created</h2>
+            <input class="btn btn-lg btn-primary btn-block" type="button" value="Go back" onclick="window.location.href='/'">
+        </div>
+      </div>
+	  <div ng-show="!submitForm" ng-hide="succesSignup" class="center sign-up-form top-margin">
+	    <h1>Sign up</h1>
+	    <form novalidate ng-submit="submit()">
+	      <input id="txtFirstName" ng-model="first_name" class="text-input email-input input-block-level" placeholder="First Name" required type="text">
+		  <input id="txtLastName" ng-model="last_name" class="text-input email-input input-block-level" placeholder="Last Name" required type="text">
+	      <input id="txtEmail" ng-model="email" class="text-input email-input input-block-level" placeholder="Email" type="text">
+          <input id="txtConfirmEmail" class="text-input email-input input-block-level" placeholder="Confirm Email" ng-model="confirm_email" type="text">
+	      <input id="txtDate" class="text-input email-input input-block-level" placeholder="Birth Date" type="text">
+	      <input id="txtPassword" ng-model="password" class="text-input email-input input-block-level" placeholder="Password" type="password">
+          <input id="txtConfirmPassword" ng-model="confirm_password" class="text-input email-input input-block-level" placeholder="Confirm Password" type="password">
+		  <div>
+		    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Create User">
+		  </div>
+	    </form>
+	    <div ng-show="submitError" class="alert alert-danger" role="alert">
+          <span class="sr-only">Error:</span>
+            {{responseError}}
+        </div>
+	  </div>
+    </div>  
+  </body>
+</html>
+
+
+<script type="text/javascript" src="./public/js/angular-1.4.4.js"></script>
+<script type="text/javascript" src="./public/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="./public/js/ui-bootstrap-0.13.2.js"></script>
+<script type="text/javascript" src="./public/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="./public/signup/signup.js"></script>
+

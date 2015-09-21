@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="OTTLogin">
+  <head>
+    <link rel="stylesheet" href="/public/css/bootstrap.css">
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/css/myStyles.css">
+  </head>
+  <body ng-controller="bodyCtrl">
+  	<div class="container top-margin">
+  	  <div class="span7 panel panel-default">
+  	  	<div class="panel-heading">
+  	  		<h1>First OTT</h1>
+  	  	</div>
+  	  	<div>
+	  	  	<img src="/public/img/logo.png">
+  	  	</div>
+  	  	<div class="text-center">
+	  	  <div class="panel panel-default event-box" ng-repeat="event in schedule | limitTo:5">
+		    <div>{{event.name}}</div>
+		    <div>{{event.when}}</div>
+	  	  </div>
+  	  	</div>
+  	  </div>
+      <div class="my-login-box">
+        <div class="login-loading-img" ng-show="loginIn">
+	        <img src="/public/img/loading.gif">
+        </div>
+	    <form ng-submit="loginForm()" ng-show="!loginIn">
+	      <h2 class="form-signin-heading">Please sign in</h2>
+	      <input id="txtEmail" type="text" class="text-input email-input input-block-level" placeholder="email" ng-model="form.email">
+	      <input id="txtPassword" type="password" class="text-input input-block-level" placeholder="password" ng-model="form.password">
+	      <input type="submit" class="btn btn-lg btn-primary btn-block" value="Log In">
+	      <input type="button" class="btn btn-lg btn-block" value="Create User" onclick="window.location.href='/signup'"> 
+	    </form>
+	    <div ng-show="loginError" class="alert alert-danger" role="alert">
+          <span class="sr-only">Error:</span>
+          Usuario o contraseña incorrectos
+        </div>
+      </div>
+  	</div>    
+  </body>
+</html>
+<script type='text/javascript'>
+  var schedule =<%-JSON.stringify(schedule)%>
+</script>
+<script type="text/javascript" src="./public/js/angular-1.4.4.js"></script>
+<script type="text/javascript" src="./public/js/login.js"></script>

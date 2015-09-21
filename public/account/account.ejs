@@ -1,0 +1,32 @@
+<div class="container text-center" ng-controller="ctrlAccount">
+  <div ng-show="submitForm" class="top-margin">
+    <img src="/public/img/loading.gif">
+  </div>
+  <div ng-show="!submitForm" ng-hide="succesSignup" class="center sign-up-form">
+    <form novalidate ng-submit="submit()">
+      <label for="txtFirstName" class="input-block-level text-left">First Name</label>
+      <input id="txtFirstName" ng-model="first_name" class="text-input input-block-level" placeholder="First Name" type="text" ng-init="first_name='<%=first_name%>'">
+      <label for="txtLastName" class="input-block-level text-left">Last Name</label>
+      <input id="txtLastName" ng-model="last_name" class="text-input input-block-level" placeholder="Last Name" type="text" ng-init="last_name='<%=last_name%>'">
+      <label for="txtEmail" class="input-block-level text-left">Email</label>
+      <input id="txtEmail" ng-model="email" class="text-input input-block-level" placeholder="Email" type="text" ng-init="email='<%=email%>'">
+      <label for="txtConfirmEmail" class="input-block-level text-left">Confirm Email</label>
+      <input id="txtConfirmEmail" ng-model="confirm_email" class="text-input input-block-level" placeholder="Confirm email" type="text" ng-init="confirm_email='<%=email%>'">
+      <div>
+        <label for="txtDate" class="input-block-level text-left">Birth Date</label>
+        <input id="txtDate" ng-model="birth_date" class="text-inpurt input-block-level" placeholder="Birth Date" type="text" ng-init="birth_date='<%=metadata.birth_date%>'">
+      </div>
+      <div>
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Save">
+        <input type="hidden" ng-model="userId" ng-init="userId='<%=id%>'">
+      </div>
+    </form>
+    <div ng-show="submitError" class="alert alert-danger" role="alert">
+      <span class="sr-only">Error:</span>
+      {{responseError}}
+    </div>
+    <div ng-show="submitOk" class="alert alert-success fade in">
+      <strong>OK!</strong> Usuario actualizado correctamente.
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="container text-center" ng-controller="ctrlLive">
+  <div class="panel panel-default player-container center">
+    <div class="panel-heading"><h3>LIVE</h3></div>
+    <div>
+      <iframe src='//mdstrm.com/live-stream/55eed15207dffb2915ba1159' width='640' height='360' frameborder='0' allowfullscreen allowscriptaccess='always'></iframe>
+    </div>
+    <div class="panel panel-default event-box" ng-repeat="event in schedule | limitTo:5">
+      {{event.name}}
+    </div>
+  </div>
+</div>
+<script type='text/javascript'>
+  var schedule =<%-JSON.stringify(schedule.data)%>
+</script>

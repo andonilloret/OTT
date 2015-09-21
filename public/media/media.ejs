@@ -1,0 +1,22 @@
+<div ng-controller="mediaCtrl" class="container text-center">
+  <div class="center" style="width:700px;">
+	<div id="mdstrm-player">
+		<img src="public/img/loading.gif">
+	</div>
+	<div>{{videoTitle}}</div>
+	<div>
+	  <div class="panel panel-default row" ng-repeat="category in categories">
+	    <div class="panel-heading"><h5>{{category.name}}</h5></div>
+	    <div class="owl-carousel">
+	      <div class="video-thumbnail panel panel-default" ng-repeat="video in category.videos">
+	        <img src={{video.thumbnails[1].url}} ng-click="loadImage(this)"><br/>
+	        {{video.title}}
+	      </div>
+	    </div>
+	  </div>
+	</div>	
+  </div>
+</div>
+<script type='text/javascript'>
+  var categories =<%-JSON.stringify(categories)%>
+</script>
