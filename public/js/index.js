@@ -33,17 +33,17 @@
   OTTModule.controller('ctrlAccount', [
     '$scope', '$http', function($scope, $http) {
       return $scope.submit = function() {
-        var metadata, updateCustomer, validation;
+        var updateCustomer, validation;
         $scope.submitForm = true;
         $scope.submitOk = false;
         $scope.submitError = false;
         updateCustomer = {
-          first_name: $scope.first_name({
-            last_name: $scope.last_name,
-            email: $scope.email
-          }, metadata = {
+          first_name: $scope.first_name,
+          last_name: $scope.last_name,
+          email: $scope.email,
+          metadata: {
             birth_date: $('#txtDate').val()
-          })
+          }
         };
         validation = true;
         validation = $scope.first_name !== '';

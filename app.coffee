@@ -4,6 +4,7 @@ session = require 'express-session'
 api = require './server/api'
 bodyParser = require 'body-parser'
 passport = require 'passport'
+CEL = require 'connect-ensure-login'
 passportPolicies = require './server/passportPolicies'
 authRoutes = require './routes/authRoutes'
 
@@ -52,7 +53,7 @@ app.get '/live', (req, res) ->
       .send 'Ha habido un error cargando la página, por favor cargue de nuevo'
 
 #MEDIA
-app.get '/media', (req, res) ->
+app.get '/media', CEL.ensureLoggedIn('/'), (req, res) ->
   params =
     user : req.session.user
     page : 'media'
@@ -64,9 +65,12 @@ app.get '/media', (req, res) ->
       res.status(500)
       .send 'Ha habido un error cargando la página, por favor cargue de nuevo'
 
-app.get '/account', (req, res) ->
-  req.session.user.page = 'account'
-  res.render 'index', req.session.user
+app.get '/account', CEL.ensureLoggedIn('/'), (req, res) ->
+  console.log req.session.passport.user
+  params =
+    user : req.session.passport.user
+    page : 'account'
+  res.render 'index', params
 
 app.get '/logout', (req, res) ->
   req.session.destroy ->
@@ -97,9 +101,9 @@ app.post '/customer', (req, res) ->
       res.status(500)
       .send 'No ha sido posible crear el usuario. Intentelo de nuevo por favor'
 
-app.put '/customer', (req, res) ->
+app.put '/customer', CEL.ensureLoggedIn('/'), (req, res) ->
   updateUser = req.body
-  updateUser.id = req.session.user.id
+  updateUser.id = req.session.passport.user.id
   api.updateCustomer updateUser, (error, response) ->
     if !error
       if response.statusCode == 200
