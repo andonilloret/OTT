@@ -42,6 +42,14 @@
   text-align: center;
 }
 
+.fbColor{
+  background-color: #3B5998;
+}
+
+.goColor{
+  background-color: #d34836;
+}
+
 
 /*SIGNUP PAGE*/
 .sign-up-form{

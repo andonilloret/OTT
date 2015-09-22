@@ -9,7 +9,7 @@
 	    <div class="panel-heading"><h5>{{category.name}}</h5></div>
 	    <div class="owl-carousel">
 	      <div class="video-thumbnail panel panel-default" ng-repeat="video in category.videos">
-	        <img src={{video.thumbnails[1].url}} ng-click="loadImage(this)"><br/>
+	        <img src={{video.thumbnails[0].url}} ng-click="loadImage(this)"><br/>
 	        {{video.title}}
 	      </div>
 	    </div>

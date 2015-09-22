@@ -1,10 +1,11 @@
 #EXPRESS REQUIRE
 express = require 'express'
 session = require 'express-session'
-api = require './server/js/api'
+api = require './server/api'
 bodyParser = require 'body-parser'
-restrict = require './authentication/restrict'
-authenticate = require './authentication/authenticate'
+passport = require 'passport'
+passportPolicies = require './server/passportPolicies'
+authRoutes = require './routes/authRoutes'
 
 #EXPRESS CONFIGURE
 app = express()
@@ -14,19 +15,15 @@ app.use session
   secret: 'keyboard cat'
   resave: false
   saveUninitialized: true
+app.use passport.initialize()
+app.use passport.session()
 
 #USE EJS FOR RENDERING HTML
 app.set 'views', __dirname+'/public'
 app.set 'view engine', 'ejs'
 
-#SESSION
-app.use (req, res, next) ->
-  err = req.session.error
-  msg = req.session.success
-  delete req.session.error
-  delete req.session.success
-  res.locals.message = ''
-  next()
+#ROUTES
+app.use "/auth",authRoutes
 
 #FRONTEND ROUTES
 app.get '/', (req, res) ->
@@ -42,7 +39,7 @@ app.get '/', (req, res) ->
         res.status(500)
         .send 'Ha habido un error cargando la página, por favor cargue de nuevo'
 
-app.get '/live', restrict, (req, res) ->
+app.get '/live', (req, res) ->
   params = 
     user : req.session.user
     page : 'live'
@@ -55,7 +52,7 @@ app.get '/live', restrict, (req, res) ->
       .send 'Ha habido un error cargando la página, por favor cargue de nuevo'
 
 #MEDIA
-app.get '/media', restrict, (req, res) ->
+app.get '/media', (req, res) ->
   params =
     user : req.session.user
     page : 'media'
@@ -67,7 +64,7 @@ app.get '/media', restrict, (req, res) ->
       res.status(500)
       .send 'Ha habido un error cargando la página, por favor cargue de nuevo'
 
-app.get '/account', restrict, (req, res) ->
+app.get '/account', (req, res) ->
   req.session.user.page = 'account'
   res.render 'index', req.session.user
 

@@ -30,6 +30,8 @@
 	      <input id="txtEmail" type="text" class="text-input email-input input-block-level" placeholder="email" ng-model="form.email">
 	      <input id="txtPassword" type="password" class="text-input input-block-level" placeholder="password" ng-model="form.password">
 	      <input type="submit" class="btn btn-lg btn-primary btn-block" value="Log In">
+        <input type="button" class="btn btn-lg btn-block btn-primary fbColor" value="Login with Facebook" onclick="window.location.href='/auth/facebook'">
+        <input type="button" class="btn btn-lg btn-block btn-primary goColor" value="Login with Google" onclick="window.location.href='/auth/google'">
 	      <input type="button" class="btn btn-lg btn-block" value="Create User" onclick="window.location.href='/signup'"> 
 	    </form>
 	    <div ng-show="loginError" class="alert alert-danger" role="alert">
@@ -43,5 +45,5 @@
 <script type='text/javascript'>
   var schedule =<%-JSON.stringify(schedule)%>
 </script>
-<script type="text/javascript" src="./public/js/angular-1.4.4.js"></script>
+<script type="text/javascript" src="./public/js/external/angular-1.4.4.js"></script>
 <script type="text/javascript" src="./public/js/login.js"></script>
