@@ -30,10 +30,13 @@ passport.use new FacebookStrategy({
   callbackURL: 'http://localhost:3000/auth/facebook/callback'
   enableProof: false
 }, (accessToken, refreshToken, profile, done) ->
-    console.log profile
-    user =
-      facebookId : profile.id
-    done null, user
+    api.getCustomer "social[facebook][id]=#{ profile.id }", (err,customer) ->
+      customer = JSON.parse customer.body
+      if customer.data.length>0
+        user = customer.data[0]
+        done null, user
+      else
+        done err
 )
 
 #GOOGLE
@@ -42,11 +45,10 @@ passport.use new GoogleStrategy({
   clientSecret: 'fw2c9pPUQ9m3rIQ52Fj7Stbz'
   callbackURL: 'http://localhost:3000/auth/google/callback'
 }, (accessToken, refreshToken, profile, done) ->
-    api.getCustomer "email=#{ profile.emails[0].value }", (err,customer) ->
+    api.getCustomer "social[google][id]=#{ profile.id }", (err,customer) ->
       customer = JSON.parse customer.body
       if customer.data.length>0
-        user =
-          googleId : profile.id
+        user = customer.data[0]
         done null, user
       else
         done err

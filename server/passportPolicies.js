@@ -44,12 +44,16 @@
     callbackURL: 'http://localhost:3000/auth/facebook/callback',
     enableProof: false
   }, function(accessToken, refreshToken, profile, done) {
-    var user;
-    console.log(profile);
-    user = {
-      facebookId: profile.id
-    };
-    return done(null, user);
+    return api.getCustomer("social[facebook][id]=" + profile.id, function(err, customer) {
+      var user;
+      customer = JSON.parse(customer.body);
+      if (customer.data.length > 0) {
+        user = customer.data[0];
+        return done(null, user);
+      } else {
+        return done(err);
+      }
+    });
   }));
 
   passport.use(new GoogleStrategy({
@@ -57,13 +61,11 @@
     clientSecret: 'fw2c9pPUQ9m3rIQ52Fj7Stbz',
     callbackURL: 'http://localhost:3000/auth/google/callback'
   }, function(accessToken, refreshToken, profile, done) {
-    return api.getCustomer("email=" + profile.emails[0].value, function(err, customer) {
+    return api.getCustomer("social[google][id]=" + profile.id, function(err, customer) {
       var user;
       customer = JSON.parse(customer.body);
       if (customer.data.length > 0) {
-        user = {
-          googleId: profile.id
-        };
+        user = customer.data[0];
         return done(null, user);
       } else {
         return done(err);

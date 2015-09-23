@@ -5,8 +5,12 @@ api = require './server/api'
 bodyParser = require 'body-parser'
 passport = require 'passport'
 CEL = require 'connect-ensure-login'
+RedisStore = require('connect-redis')(session)
 passportPolicies = require './server/passportPolicies'
 authRoutes = require './routes/authRoutes'
+
+#REDIS CLIENT
+redis = require('redis').createClient();
 
 #EXPRESS CONFIGURE
 app = express()
@@ -14,8 +18,10 @@ app.use bodyParser.json()
 app.use '/public', express.static __dirname+'/public'
 app.use session
   secret: 'keyboard cat'
-  resave: false
-  saveUninitialized: true
+  store: new RedisStore
+    host: 'localhost'
+    port: 6379
+    client: redis
 app.use passport.initialize()
 app.use passport.session()
 
@@ -66,7 +72,6 @@ app.get '/media', CEL.ensureLoggedIn('/'), (req, res) ->
       .send 'Ha habido un error cargando la página, por favor cargue de nuevo'
 
 app.get '/account', CEL.ensureLoggedIn('/'), (req, res) ->
-  console.log req.session.passport.user
   params =
     user : req.session.passport.user
     page : 'account'
