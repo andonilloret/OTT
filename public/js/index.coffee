@@ -62,3 +62,11 @@ OTTModule.controller 'ctrlAccount', [
         $scope.submitError = true
         $scope.responseError = 'Revise los campos.'
 ]
+
+#FUNCTIONS
+$(document).ready ->
+  $('.owl-carousel').owlCarousel
+    items: 4
+    loop: true
+    dots: true
+  return

@@ -34,6 +34,14 @@
     return res.redirect('/media');
   });
 
+  router.get('/twitter', passport.authenticate('twitter'));
+
+  router.get('/twitter/callback', passport.authenticate('twitter', {
+    failureRedirect: '/'
+  }), function(req, res) {
+    return res.redirect('/media');
+  });
+
   module.exports = router;
 
 }).call(this);

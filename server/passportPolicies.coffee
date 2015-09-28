@@ -3,6 +3,7 @@ request = require 'request'
 api = require './api'
 FacebookStrategy = require('passport-facebook').Strategy
 GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
+TwitterStrategy = require('passport-twitter').Strategy
 LocalStrategy = require('passport-local').Strategy
 
 #LOCAL
@@ -53,6 +54,16 @@ passport.use new GoogleStrategy({
       else
         done err
 )
+
+#TWITTER
+passport.use new TwitterStrategy({
+  consumerKey: '62ASEsjJF2DNRYZlIFmUNJCwG'
+  consumerSecret: 'QFeK34rUpKayfGT4ellIYi7wXd6zeM5J58XSekZ4hH2CQhnhh6'
+  callbackURL: 'http://127.0.0.1:3000/auth/twitter/callback'
+}, (token, tokenSecret, profile, done) ->
+  console.log profile
+)
+
 
 #USER SERIALIZATION
 passport.serializeUser (user, done) ->

@@ -1,6 +1,7 @@
 #EXPRESS REQUIRE
 express = require 'express'
 session = require 'express-session'
+path = require 'path'
 api = require './server/api'
 bodyParser = require 'body-parser'
 passport = require 'passport'
@@ -25,9 +26,9 @@ app.use session
 app.use passport.initialize()
 app.use passport.session()
 
-#USE EJS FOR RENDERING HTML
-app.set 'views', __dirname+'/public'
-app.set 'view engine', 'ejs'
+#VIEW ENGINE SETUP
+app.set 'views', path.join(__dirname, 'public/views')
+app.set('view engine', 'ejs');
 
 #ROUTES
 app.use "/auth",authRoutes
@@ -41,7 +42,7 @@ app.get '/', (req, res) ->
       if !error
         params = []
         params.schedule = JSON.parse response.body
-        res.render 'login', params
+        res.render 'pages/login', params
       else
         res.status(500)
         .send 'Ha habido un error cargando la página, por favor cargue de nuevo'
@@ -53,7 +54,7 @@ app.get '/live', (req, res) ->
   api.getSchedule (error, response) ->
     if !error
       params.schedule = JSON.parse response.body 
-      res.render 'index', params
+      res.render 'pages/index', params
     else
       res.status(500)
       .send 'Ha habido un error cargando la página, por favor cargue de nuevo'
@@ -66,7 +67,7 @@ app.get '/media', CEL.ensureLoggedIn('/'), (req, res) ->
   api.getMedia (error, response) ->
     if !error
       params.categories = response
-      res.render 'index', params
+      res.render 'pages/index', params
     else
       res.status(500)
       .send 'Ha habido un error cargando la página, por favor cargue de nuevo'
@@ -75,7 +76,7 @@ app.get '/account', CEL.ensureLoggedIn('/'), (req, res) ->
   params =
     user : req.session.passport.user
     page : 'account'
-  res.render 'index', params
+  res.render 'pages/index', params
 
 app.get '/logout', (req, res) ->
   req.session.destroy ->
@@ -95,7 +96,7 @@ app.post '/login', (req, res) ->
 
 #SIGNUP CUSTOMER
 app.get '/signup', (req, res) ->
-  res.render 'signup/signup'
+  res.render 'pages/signup'
 
 app.post '/customer', (req, res) ->
   api.signupCustomer req.body, (error, response) ->

@@ -16,5 +16,10 @@ router.get '/google', passport.authenticate 'google', scope: ['https://www.googl
 router.get '/google/callback', passport.authenticate('google', failureRedirect: '/'), (req, res) ->
   res.redirect '/media'
 
+#TWITTER
+router.get '/twitter', passport.authenticate('twitter')
+router.get '/twitter/callback', passport.authenticate('twitter', failureRedirect: '/'), (req, res) ->
+  res.redirect '/media'
+
 #EXPORTS
 module.exports = router

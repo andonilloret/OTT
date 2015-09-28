@@ -20,11 +20,11 @@
   <body>
   	<div>
       <% if(page=="live"){ %>
-	  <%- include("live/live") %>
+	  <%- include("../partials/live") %>
 	  <% }else if(page=="media"){ %>
-	  <%- include("media/media") %>
+	  <%- include("../partials/media") %>
 	  <% }else if(page=="account"){ %>
-	  <%- include("account/account") %>
+	  <%- include("../partials/account") %>
 	  <% }%>%>
   	</div>
   </body>
@@ -35,7 +35,6 @@
 <script type="text/javascript" src="./public/js/external/owl.carousel.min.js"></script>
 <script type="text/javascript" src="./public/js/external/angular-1.4.4.js"></script>
 <script type="text/javascript" src="./public/js/index.js"></script>
-<script type="text/javascript" src="./public/media/media.js"></script>
 
 
 
